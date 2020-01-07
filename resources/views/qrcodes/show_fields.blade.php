@@ -1,3 +1,9 @@
+<!--  Id Field -->
+<div class="form-group">
+    {!! Form::label('id', 'Id:') !!}
+    <p>{{ $qrcode->id }}</p>
+</div>
+
 <!-- User Id Field -->
 <div class="form-group">
     {!! Form::label('user_id', 'User Id:') !!}
@@ -32,6 +38,7 @@
 <div class="form-group">
     {!! Form::label('qrcode_path', 'Qrcode Path:') !!}
     <p>{{ $qrcode->qrcode_path }}</p>
+<img src="{{ asset($qrcode->qrcode_path)}}" alt="">
 </div>
 
 <!-- Callback Url Field -->

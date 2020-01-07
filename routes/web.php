@@ -20,6 +20,11 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
+
+// Only Logged in Users can view the below
+Route::group(['middleware' => 'auth'], function () {
+
+
 Route::resource('qrcodes', 'QrcodeController');
 
 Route::resource('roles', 'RoleController');
@@ -27,3 +32,6 @@ Route::resource('roles', 'RoleController');
 Route::resource('transactions', 'TransactionController');
 
 Route::resource('users', 'UserController');
+
+    
+});
