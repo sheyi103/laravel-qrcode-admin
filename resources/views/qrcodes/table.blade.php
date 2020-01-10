@@ -2,9 +2,9 @@
     <table class="table" id="qrcodes-table">
         <thead>
             <tr>
-        <th>Website</th>
-      
+            
         <th>Product Name</th>
+        <th>Website</th>
         <th>Amount</th>
         <th>Status</th>
                 <th colspan="3">Action</th>
@@ -13,8 +13,13 @@
         <tbody>
         @foreach($qrcodes as $qrcode)
             <tr>
+            
+            <td>
+           <a class="text-info" href="{{ route('qrcodes.show', [$qrcode->id]) }}"> 
+          <b> {{ $qrcode->product_name }}</b>
+           </a>
+            </td>
             <td>{{ $qrcode->website }}</td>
-            <td>{{ $qrcode->product_name }}</td>
             <td>&#8358;{{ $qrcode->amount }}</td>
             <td>
                 @if ($qrcode->status == 1)
