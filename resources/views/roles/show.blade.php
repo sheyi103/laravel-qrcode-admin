@@ -6,6 +6,7 @@
             Role
         </h1>
          <h1 class="pull-right">
+         
         <a href="{{ route('roles.edit', [$role->id]) }}" class='btn btn-primary pull-right'>Edit Role</a>
         </h1>
     </section>
