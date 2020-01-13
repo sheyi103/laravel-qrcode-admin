@@ -9,6 +9,7 @@ use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use Flash;
 use Response;
+use App\Models\Role;
 
 class UserController extends AppBaseController
 {
@@ -100,7 +101,10 @@ class UserController extends AppBaseController
             return redirect(route('users.index'));
         }
 
-        return view('users.edit')->with('user', $user);
+        $roles = Role::all();
+        return view('users.edit')
+        ->with('user', $user)
+        ->with('roles',$roles);
     }
 
     /**

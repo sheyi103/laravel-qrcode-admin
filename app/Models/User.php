@@ -67,5 +67,19 @@ class User extends Model
         'password' => 'required'
     ];
 
+    /**
+     * Get the transactions for the User.
+     */
+    public function transactions()
+    {
+        return $this->hasMany('App\Models\Transaction');
+    }
+
+    /**
+     * Get the role that owns this User.
+     */
+    public function role(){
+        return $this->belongsTo('App\Models\Role');
+    }
     
 }
