@@ -32,8 +32,13 @@ class QrcodeController extends AppBaseController
      */
     public function index(Request $request)
     {
+        //Only admin Should be able to see all
+        if(Auth::user()->role_id < 3){ 
         $qrcodes = $this->qrcodeRepository->all();
-
+        }
+        else{
+            $qrcodes = qrcodeModel::where('user_id', Auth::user()->id)->get();
+        }
         return view('qrcodes.index')
             ->with('qrcodes', $qrcodes);
     }
@@ -113,7 +118,11 @@ class QrcodeController extends AppBaseController
             return redirect(route('qrcodes.index'));
         }
 
-        return view('qrcodes.show')->with('qrcode', $qrcode);
+        $transactions = $qrcode->transactions;
+
+        return view('qrcodes.show')
+        ->with('transactions',$transactions)
+        ->with('qrcode', $qrcode);
     }
 
     /**

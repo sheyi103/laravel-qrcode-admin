@@ -28,19 +28,19 @@
         </div>
 
         
-        @if ($qrcode->user_id == Auth::user()->id || Auth::user()->role_id < 3 ) 
+        @if (!Auth::guest() && ($qrcode->user_id == Auth::user()->id || Auth::user()->role_id < 3 )) 
         <hr/>
 
         <!-- User Id Field -->
         <div class="form-group">
             {!! Form::label('user_id', 'User Name:') !!}
-            <p>{{ $qrcode->user_id }}</p>
+            <p>{{ $qrcode->user['email'] }}</p>
         </div>
 
         <!-- Website Field -->
         <div class="form-group">
             {!! Form::label('website', 'Website:') !!}
-            <p>{{ $qrcode->website }}</p>
+            <p><a href="{{ $qrcode->website }}" target="_blank">{{ $qrcode->website }}</a></p>
         </div>
 
        
@@ -52,7 +52,7 @@
         <!-- Callback Url Field -->
         <div class="form-group">
             {!! Form::label('callback_url', 'Callback Url:') !!}
-            <p>{{ $qrcode->callback_url }}</p>
+            <p><a href="{{ $qrcode->callback_url }}" target="_blank">{{ $qrcode->callback_url }}</a></p>
         </div>
   <div class="form-group">
             {!! Form::label('created_at', 'Created At') !!}
@@ -82,10 +82,10 @@
             </p>
         </div>
 
-</div>
+
 
    @endif    
-
+</div>
 
 <div class="col-md-3">
  <div class="form-group pull-right">
@@ -95,3 +95,10 @@
         </p>
         </div>
 </div>
+
+  @if (!Auth::guest() && ($qrcode->user_id == Auth::user()->id || Auth::user()->role_id < 3 ) )
+<div class="col-xs-12">
+<h3 class="text-center text-default">Transaction done on this qrcode</h3>
+@include('transactions.table')
+</div>
+@endif

@@ -6,8 +6,10 @@ use App\Http\Requests\CreateTransactionRequest;
 use App\Http\Requests\UpdateTransactionRequest;
 use App\Repositories\TransactionRepository;
 use App\Http\Controllers\AppBaseController;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Flash;
+use Illuminate\Support\Facades\Auth;
 use Response;
 
 class TransactionController extends AppBaseController
@@ -29,7 +31,12 @@ class TransactionController extends AppBaseController
      */
     public function index(Request $request)
     {
+        //Only admin Should be able to see all
+        if(Auth::user()->role_id < 3){ 
         $transactions = $this->transactionRepository->all();
+    }else{
+        $transactions = Transaction::where('user_id', Auth::user()->id)->get();
+    }
 
         return view('transactions.index')
             ->with('transactions', $transactions);

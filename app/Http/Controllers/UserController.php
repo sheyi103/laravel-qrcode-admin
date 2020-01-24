@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use Illuminate\Support\Facades\Hash;
 use App\Repositories\UserRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
@@ -80,8 +81,15 @@ class UserController extends AppBaseController
 
             return redirect(route('users.index'));
         }
+        $transactions = $user->transactions;
+        
+        $qrcodes = $user->qrcodes;
 
-        return view('users.show')->with('user', $user);
+
+        return view('users.show')
+        ->with('transactions', $transactions)
+        ->with('qrcodes', $qrcodes)
+        ->with('user', $user);
     }
 
     /**
@@ -125,7 +133,14 @@ class UserController extends AppBaseController
             return redirect(route('users.index'));
         }
 
-        $user = $this->userRepository->update($request->all(), $id);
+        $input = $request->all();
+        if(!empty($input['password'])){
+            $input['password'] =  Hash::make($input['password']);
+              
+        }
+
+        //Hash::make($data['password'])
+        $user = $this->userRepository->update($input, $id);
 
         Flash::success('User updated successfully.');
 

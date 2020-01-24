@@ -1,8 +1,4 @@
-<!-- Name Field -->
-<div class="form-group">
-    {!! Form::label('name', 'Name:') !!}
-    <p>{{ $role->name }}</p>
-</div>
+
 
 <!-- Created at Field -->
 <div class="form-group">
@@ -11,4 +7,6 @@
 </div>
 
 
+<h3 class="text-center">Users that belong to this role</h3>
+@include('users.table')
 

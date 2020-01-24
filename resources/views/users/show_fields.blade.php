@@ -16,14 +16,22 @@
     <p>{{ $user->email }}</p>
 </div>
 
-<!-- Email Verified At Field -->
-<div class="form-group">
-    {!! Form::label('email_verified_at', 'Email Verified At:') !!}
-    <p>{{ $user->email_verified_at }}</p>
-</div>
 
 
 <div class="form-group">
      {!! Form::label('created_at', 'Joined') !!}
      <p>{{ $user->created_at -> format('D d, M, Y h:i')}}</p>
  </div>
+
+
+ @if ($user->id == Auth::user()->id || Auth::user()->role_id < 3 ) 
+<div class="col-xs-12">
+<h3 class="text-center text-default">Transactions</h3>
+@include('transactions.table')
+</div>
+
+<div class="col-xs-12">
+<h3 class="text-center text-default">Qrcodes</h3>
+@include('qrcodes.table')
+</div>
+@endif
